@@ -1,0 +1,80 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:custom_controls="clr-namespace:KB.AvaloniaCore.Controls;assembly=KB.AvaloniaCore">
+	
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<custom_controls:SortingItemsControl>
+				<custom_controls:SortingItemsControl.Items>
+					<ContentPresenter>
+						<ContentPresenter.Content>
+							<TextBlock Text="Item 1"/>
+						</ContentPresenter.Content>
+					</ContentPresenter>
+					<ContentPresenter>
+						<ContentPresenter.Content>
+							<TextBlock Text="Item 2"/>
+						</ContentPresenter.Content>
+					</ContentPresenter>
+					<ContentPresenter>
+						<ContentPresenter.Content>
+							<TextBlock Text="Item 3"/>
+						</ContentPresenter.Content>
+					</ContentPresenter>
+					<ContentPresenter>
+						<ContentPresenter.Content>
+							<TextBlock Text="Item 4"/>
+						</ContentPresenter.Content>
+					</ContentPresenter>
+					<ContentPresenter>
+						<ContentPresenter.Content>
+							<TextBlock Text="Item 5"/>
+						</ContentPresenter.Content>
+					</ContentPresenter>
+					<ContentPresenter>
+						<ContentPresenter.Content>
+							<TextBlock Text="Item 6"/>
+						</ContentPresenter.Content>
+					</ContentPresenter>
+				</custom_controls:SortingItemsControl.Items>
+			</custom_controls:SortingItemsControl>
+		</Border>
+	</Design.PreviewWith>			
+		
+	<ControlTheme x:Key="{x:Type custom_controls:SortingItemsControl}" TargetType="custom_controls:SortingItemsControl">
+		<Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+		<Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+		<Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+		<Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
+		<Setter Property="ScrollViewer.IsScrollInertiaEnabled" Value="True" />
+		<Setter Property="DragDrop.AllowDrop" Value="True" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Name="border"
+						ClipToBounds="{TemplateBinding ClipToBounds}"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="{TemplateBinding CornerRadius}">
+					<ScrollViewer Name="PART_ScrollViewer"
+								  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+								  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+								  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+								  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+								  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+								  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+														IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+								  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+								  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
+						<ItemsPresenter Name="PART_ItemsPresenter"
+										ItemsPanel="{TemplateBinding ItemsPanel}"
+										Margin="{TemplateBinding Padding}"/>
+					</ScrollViewer>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>
