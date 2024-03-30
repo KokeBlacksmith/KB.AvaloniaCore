@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using Avalonia.Media;
 using KB.AvaloniaCore.ReactiveUI;
 
 namespace KB.AvaloniaCore.Controls;
@@ -12,15 +11,20 @@ public sealed class SortingItemsControl : ItemsControl
 {
     private class DraggedItemInfo
     {
-        public DraggedItemInfo(ContentPresenter? draggedItem, int draggedItemIndex)
+        public DraggedItemInfo(InternalItemContentPresenter draggedItem, int draggedItemIndex)
         {
             DraggedItem = draggedItem;
             DraggedItemIndex = draggedItemIndex;
         }
 
-        public ContentPresenter? DraggedItem;
+        public InternalItemContentPresenter DraggedItem;
         public int DraggedItemIndex;
     }
+
+    /// <summary>
+    /// Item container for every item in the list.
+    /// </summary>
+    private class InternalItemContentPresenter : ContentPresenter { }
 
     private AdornerLayer? _adornerLayer;
     /// <summary>
@@ -36,6 +40,11 @@ public sealed class SortingItemsControl : ItemsControl
         AddHandler(DragDrop.DragOverEvent, _OnDragOver);
     }
 
+    protected override Control CreateContainerForItemOverride(object? item, int index, object? recycleKey)
+    {
+        return new InternalItemContentPresenter();
+    }
+
     /// <summary>
     /// Change positions of items from old index to new index. (int, int)
     /// </summary>
@@ -48,7 +57,7 @@ public sealed class SortingItemsControl : ItemsControl
     }
 
 
-    private ContentPresenter? GetItemFromPosition(Point point)
+    private InternalItemContentPresenter? GetItemFromPosition(Point point)
     {
         int totalItemsCount = Items.Count;
         for (int i = 0; i < totalItemsCount; ++i)
@@ -60,7 +69,7 @@ public sealed class SortingItemsControl : ItemsControl
                 bool isPointerOver = item.Bounds.Contains(point);
                 if(isPointerOver)
                 {
-                    return (ContentPresenter)item;
+                    return (InternalItemContentPresenter)item;
                 }
             }
         }
@@ -96,7 +105,7 @@ public sealed class SortingItemsControl : ItemsControl
             return;
         }
 
-        ContentPresenter? draggedItemPresenter = GetItemFromPosition(e.GetPosition(this));
+        InternalItemContentPresenter? draggedItemPresenter = GetItemFromPosition(e.GetPosition(this));
         if(draggedItemPresenter == null)
         {
             return;
